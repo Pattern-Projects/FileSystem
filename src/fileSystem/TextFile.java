@@ -10,14 +10,25 @@ import java.time.format.DateTimeFormatter;
 public class TextFile {
     Path path;
 
-    public TextFile (Path location){
+    public TextFile (Path location) {
         path = location.resolve(
                 LocalDateTime.now()
                         .format(DateTimeFormatter.ofPattern("MM-dd-yy-hh-mm-ss"))
-                        +".txt");
+                        + ".txt");
+        createFile();
+    }
+
+    public TextFile (Path location, String name) {
+        path = location.resolve(name);
+        createFile();
+    }
+
+    public void createFile () {
+
         try {
             Files.createDirectories(path.getParent());
-            Files.createFile(path);
+            if (!Files.exists(path))
+                Files.createFile(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
