@@ -19,12 +19,11 @@ public class TextFile {
     }
 
     public TextFile (Path location, String name) {
-        path = location.resolve(name);
+        path = location.resolve(name+".txt");
         createFile();
     }
 
     public void createFile () {
-
         try {
             Files.createDirectories(path.getParent());
             if (!Files.exists(path))
@@ -45,9 +44,8 @@ public class TextFile {
     public void read () throws IOException{
         try (var reader = Files.newBufferedReader(path)) {
             System.out.println("Reading from file: ");
-            String currentLine;
-            while ((currentLine = reader.readLine()) != null)
-                System.out.println(currentLine);
+            var lines = reader.lines();
+            lines.forEachOrdered(System.out::println);
         }
 
     }
