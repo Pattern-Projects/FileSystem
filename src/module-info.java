@@ -1,0 +1,3 @@
+module FileSystem {
+    exports fileSystem;
+}
